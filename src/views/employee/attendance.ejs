@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.png" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+    <link rel="manifest" href="/assets/img/site.webmanifest">
+    <link rel="mask-icon" href="/assets/img/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/assets/img/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="/assets/img/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="/assets/css/lnr-icon.css" />
+
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css" />
+
+    <link rel="stylesheet" href="/assets/plugins/select2/select2.min.css" />
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <title>Attendance </title>
+  </head>
+  <body>
+    <div class="inner-wrapper">
+      <!--  header partials  -->
+      <%- include('../partials/headerEmployee'); %>
+
+      <div class="page-wrapper position-relative">
+        <div class="container-fluid">
+          <div class="row">
+            <!--  side bar aside tag -->
+            <%- include('../partials/asideEmployee'); %>
+
+            <div class="col-xl-10 col-lg-9 col-md-12">
+              <div
+                class="quicklink-sidebar-menu ctm-border-radius shadow-sm grow bg-white p-4 mb-4 card"
+              >
+                <h4>Attendance</h4>
+              </div>
+
+              <div class="card shadow-sm ctm-border-radius grow">
+                <div class="card-body align-center">
+                  <div class="row filter-row">
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                      <div class="form-group mb-lg-0 mb-md-0 mb-sm-0">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="datepicker"
+                          id="datepicker"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                      <button
+                        id="filterAttendance"
+                        onclick="filterAttendance()"
+                        class="btn btn-theme text-white p-2 mb-md-0 mb-sm-0 mb-lg-0 mb-0"
+                      >
+                        filter
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card shadow-sm ctm-border-radius grow">
+                <div
+                  class="card-body align-center overflow-auto"
+                  id="attendance-table-container"
+                ></div>
+              </div>
+
+              <div class="card shadow-sm ctm-border-radius grow">
+                <div class="card-body align-center">
+                  <p id="error-message" class="text-danger"></p>
+                  <div class="row d-flex justify-content-center">
+                    <div class="mx-2">
+                      <button
+                        id="startTime"
+                        onclick="startTimeBtn()"
+                        class="btn btn-theme text-white rounded-circle p-4 mb-md-0 mb-sm-0 mb-lg-0 mb-0"
+                      >
+                        start
+                      </button>
+                    </div>
+                    <div class="mx-2">
+                      <button
+                        id="endTime"
+                        onclick="endTimeBtn()"
+                        class="btn btn-danger text-white rounded-circle p-4 mb-md-0 mb-sm-0 mb-lg-0 mb-0"
+                      >
+                        stop
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card shadow-sm ctm-border-radius grow">
+                <div class="card-body align-center">
+                  <p id="error-message" class="text-danger"></p>
+                  <div class="table-back employee-office-table">
+                    <div class="table-responsive">
+                      <table class="table custom-table table-hover table-hover">
+                        <h5>Daily Report</h5> <hr>
+                        <thead>
+                          <tr>
+                            <th>start Time</th>
+                            <th>end Time</th>
+                            <th>log time</th>
+                          </tr>
+                        </thead>
+                        <tbody id="daily-log">
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <!-- Toasts -->
+      <div aria-live="polite" aria-atomic="true">
+
+          <!-- Position it -->
+          <div class="fixed-bottom w-25" style="bottom: 2rem; left: 2rem;">
+              <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                  <div class="toast-header">
+                      <strong class="mr-auto toast-title">Toast Title</strong>
+                      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="toast-body">
+                      Some Toast Body      
+                  </div>
+            </div>
+          </div>
+      </div>
+
+      </div>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebar_overlay"></div>
+
+    <script src="/assets/js/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <script src="/assets/plugins/select2/select2.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+
+    <script src="/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+    <script src="/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
+    <script src="/assets/js/script.js"></script>
+    <script src="/assets/js/navigation.js"></script>
+    <script>
+        $('.aside-module-name').text('Attendance');
+        $('#asideAttendance').removeClass('text-dark').addClass('active').addClass('text-white');
+      const getTotalMinutes = (startTime, endTime) => {
+        let newHour = new Date(endTime).getHours() - new Date(startTime).getHours();
+        if (newHour < 0) {
+          throw new Error('end time before start time');
+        }
+        let newMinute = new Date(endTime).getMinutes() - new Date(startTime).getMinutes();
+        if (newMinute < 0) {
+          newHour -= 1;
+          newMinute = 60 - Math.abs(newMinute);
+        }
+
+        newHour = newHour * 60 + newMinute;
+        // console.log(newHour);
+        const result = Number(newHour);
+        return result;
+      };
+
+      const getDailyLog = (log) => {
+        if (log) {
+          $('#daily-log').html('');
+          log.forEach((log) => {
+          $('#daily-log').append(`
+            <tr>
+                  <td>
+                    ${new Date(log.start).toLocaleTimeString()}
+                  </td>
+                  <td>
+                    ${new Date(log.end).toLocaleTimeString()}
+                  </td>
+                  <td>
+                    ${getTotalMinutes(log.start, log.end)} minutes  
+                  </td>
+                </tr>
+          `);
+          });
+        } else {
+          $('#daily-log').html('');
+          $('#daily-log').html('No activity available');
+        }
+      }
+
+      $("#datepicker").datepicker({
+        format: "mm-yyyy",
+        startView: "months",
+        minViewMode: "months",
+      });
+
+      const getDay = (date, month, year) => {
+        return new Date(year, month, date).toString().split(" ")[0];
+      };
+
+      const tableConstructor = (searchMonth, searchYear) => {
+        $("#attendance-table-container").html(`
+          <table class="table table-striped">
+                    <thead>
+                      <tr id="tableHead">
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr id="startTime">
+                        <th scope="row">start Time</th>
+                      </tr>
+                      <tr id="endTime">
+                        <th scope="row">end Time</th>
+                      </tr>
+                      <tr id="totalHour">
+                        <th scope="row">Total Time</th>
+                      </tr>
+                      <tr id="log">
+                        <th scope="row">Daily Log</th>
+                      </tr>
+                    </tbody>
+                  </table>
+        `);
+        const today = new Date();
+        let year = today.getFullYear();
+        let month = today.getMonth();
+        if (searchMonth !== null) {
+          month = searchMonth - 1;
+          year = searchYear;
+        }
+        $("#datepicker").val(`${month + 1}-${year}`);
+        let days = new Date(year, month + 1, 0).getDate();
+        let date = 1;
+        // console.log(`${window.location.pathname}/data`);
+
+        while (days >= date) {
+          const day = getDay(date, month, year);
+          // console.log('high tide', new Date(year, month, date));
+          $("#tableHead").append(
+            `<th scope="col" id="${date}">${date} ${day}</th>`
+          );
+          $("#startTime").append(`<td id="start-${date}">NA</td>`);
+          $("#endTime").append(`<td id="end-${date}">NA</td>`);
+          $("#totalHour").append(`<td id="totalHour-${date}">NA</td>`);
+          $("#log").append(`<td id="log-${date}"><button class="btn btn-light" onclick='getDailyLog(${false})'> Log </button></td>`);
+
+          date += 1;
+        }
+        // console.log(month, year);
+        $.ajax({
+          type: "GET",
+          url: `${window.location.pathname}/table?month=${month}&&year=${year}`,
+          success: (result) => {
+            // console.log(result.data);
+            if (result.data !== "NA") {
+              result.data.forEach((key) => {
+                const date = key.date;
+                if (!key.isOnLeave) {
+                  const { startTime, endTime, totalHour } = key.finalLog;
+
+                  $(`#start-${date}`).text(
+                    `${new Date(startTime).toLocaleTimeString()}`
+                  );
+                  $(`#end-${date}`).text(
+                    `${new Date(endTime).toLocaleTimeString()}`
+                  );
+                  $(`#totalHour-${date}`).text(`${totalHour}`);
+
+                  // json stringify value in function work as parsed 
+                  $(`#log-${date} button`).attr('onclick', `getDailyLog(${JSON.stringify(key.log) || false})`);
+
+                  if (key.date === today.getDate()) {
+                      getDailyLog(key.log);
+                  }
+                }
+              });
+            }
+          },
+          error: (error) => {
+            console.log(error);
+              $('.toast-header').removeClass('bg-danger').addClass('bg-success').addClass('text-dark');
+              $('.toast-title').text('Attendance');
+              $('.toast-body').text('Attendance punch In successfully!');
+              $('.toast').toast({ delay: 4000 });
+              $('.toast').toast('show');
+          },
+        });
+      };
+      tableConstructor(null, null);
+
+      const attandanceStartStop = (data, punch) => {
+        $.ajax({
+          type: "POST",
+          url: window.location.pathname,
+          data,
+          success: function (result) {
+            // console.log("result", result.data);
+            if (punch) {
+              $('.toast-header').removeClass('bg-warning').addClass('bg-success').addClass('text-dark');
+              $('.toast-title').text('Attendance');
+              $('.toast-body').text('Attendance punch In successfully!');
+              $('.toast').toast({ delay: 4000 });
+              $('.toast').toast('show');
+            } else {
+              $('.toast-header').removeClass('bg-success').addClass('bg-warning').addClass('text-dark');
+              $('.toast-title').text('Attendance');
+              $('.toast-body').text('Attendance punch out successfully!');
+              $('.toast').toast({ delay: 4000 });
+              $('.toast').toast('show');
+              tableConstructor(null, null);
+            }
+          },
+          error: function (error) {
+            $("#error-message").text(error.responseJSON.errorMessage);
+            setTimeout(() => {
+              $("#error-message").text("");
+            }, 2000);
+          },
+        });
+      };
+    </script>
+    <script>
+      const filterAttendance = () => {
+        const date = $("#datepicker").val();
+        const month = date.split("-")[0];
+        const year = date.split("-")[1];
+        tableConstructor(Number(month), Number(year));
+      };
+
+      const startTimeBtn = () => {
+        // $("#endTime").attr('disabled', false);
+        // $("#startTime").attr('disabled', true);
+        attandanceStartStop({
+          startDate: new Date(),
+        }, true);
+      };
+      const endTimeBtn = () => {
+        // $("#startTime").attr('disabled', false);
+        // $("#endTime").attr('disabled', true);
+        attandanceStartStop({
+          endDate: new Date(),
+        }, false);
+      };
+    </script>
+  </body>
+</html>

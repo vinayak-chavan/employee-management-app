@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.png" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+    <link rel="manifest" href="/assets/img/site.webmanifest">
+    <link rel="mask-icon" href="/assets/img/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/assets/img/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="/assets/img/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="assets/css/lnr-icon.css" />
+
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+
+    <link rel="stylesheet" href="assets/plugins/select2/select2.min.css" />
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <title>Employees</title>
+
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.min.js"></script>
+      <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="inner-wrapper position-relative">
+      <!--  header partials  -->
+      <%- include('partials/header'); %>
+
+      <div class="page-wrapper">
+        <div class="container-fluid">
+          <div class="row">
+            <!--  side bar aside tag -->
+            <%- include('partials/aside'); %>
+
+            <div class="col-xl-10 col-lg-9 col-md-12">
+              <% if(role === 'ADMIN') { %> 
+              <div id="addEmployeeFormContainer" class="d-none">
+                  <%- include('add-employee'); %>
+              </div>
+              <div id="editEmployeeFormContainer" class="d-none">
+                  <%- include('edit-employee'); %>
+              </div>
+              <% }; %>
+              <div id="employeeDisplayContainer" class="">
+              <div class="quicklink-sidebar-menu ctm-border-radius shadow-sm grow bg-white card">
+                <div class="card-body">
+                  <ul class="list-group list-group-horizontal-lg">
+                    <li class="list-group-item text-center active button-5 disabled">
+                      <a href="/" class="text-white">All</a>
+                    </li>
+                    <!-- <li class="list-group-item text-center button-6">
+                      <a class="text-dark" href="/employees-team">Teams</a>
+                    </li>
+                    <li class="list-group-item text-center button-6">
+                      <a class="text-dark" href="/employees-offices">Offices</a>
+                    </li> -->
+                  </ul>
+                </div>
+              </div>
+              <div class="card shadow-sm grow ctm-border-radius">
+                <div class="card-body align-center">
+                  <h4 class="card-title float-left mb-0 mt-2"><%= totalEmployee %> Employees</h4>
+                  <ul class="nav nav-tabs float-right border-0 tab-list-emp">
+                    <!-- <li class="nav-item">
+                      <a
+                        class="nav-link active border-0 font-23 grid-view"
+                        href="/"
+                        ><i class="fa fa-th-large" aria-hidden="true"></i
+                      ></a>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link border-0 font-23 list-view"
+                        href="/employees-list"
+                        ><i class="fa fa-list-ul" aria-hidden="true"></i
+                      ></a>
+                    </li> -->
+                    <% if(role === 'ADMIN') { %> 
+                    <li class="nav-item pl-3">
+                      <a
+                        href="#"
+                        id="addEmployeeBtn"
+                        class="btn btn-theme button-1 text-white ctm-border-radius p-2 add-person ctm-btn-padding"
+                        ><i class="fa fa-plus"></i> Add Person</a
+                      >
+                    </li>
+                    <% }; %>
+                  </ul>
+                </div>
+              </div>
+              <div class="card shadow-sm grow ctm-border-radius">
+                <div class="card-body align-center">
+                  <!-- <h4 class="card-title float-left mb-0 mt-2">7 People</h4> -->
+                  <ul class="nav nav-tabs d-flex justify-content-between border-0 tab-list-emp">
+                    <li class="nav-item">
+                      <a href=""
+                        id="previousEmployeeRecord"
+                        class="btn btn-theme button-1 text-white ctm-border-radius p-2 ctm-btn-padding">
+                        <i class="fa fa-angle-double-left"></i> Prev </a>
+                    </li>
+                    <li class="nav-item pl-3">
+                      <h4 class="card-title float-left mb-0 mt-2" id="employeeRecordPageCount" data-page="1">1</h4>
+                    </li>
+                    <li class="nav-item">
+                      <a href=""
+                        id="nextEmployeeRecord"
+                        class="btn btn-theme button-1 text-white ctm-border-radius p-2 ctm-btn-padding">
+                        Next <i class="fa fa-angle-double-right"></i> </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="d-flex mb-1 grow"> 
+                <!-- <div class="input-group">
+                      <label class="">
+                        <input type="checkbox" class="form-control" id="" name="isArchived">
+                        <span class="slider"> </span>
+                      </label>
+                </div> -->
+                <div class="input-group">
+                  <select
+                    class="form-control select"
+                    id="employeeRecordLimit"
+                    name="employeeRecordLimit"
+                  >
+                    <option selected disabled> No of records: </option>
+                    <option  value="6">6</option>
+                    <option  value="12">12</option>
+                    <option  value="18">18</option>
+                    <option  value="24">24</option>
+                    <option  value="30">30</option>
+                    <option  value="36">36</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <select
+                    class="form-control select "
+                    id="order"
+                    name="order"
+                  >
+                    <option selected value="ASC">ASC - order</option>
+                    <option value="DESC">DESC - order</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="search keyword" id="searchKeyword" name="keyword">
+                  <div class="input-group-append">
+                    <button class="btn btn-theme text-white ctm-border-radius" id="search" type="button"> Go </button>
+                  </div>
+                </div>
+              </div>
+              <div class="ctm-border-radius shadow-sm grow card">
+                <div class="card-body">
+                  
+                  <div class="row people-grid-row" id="displayEmployeeDetails">
+
+                    <div class="col-md-6 col-lg-6 col-xl-4" >
+                      <div class="card widget-profile">
+                        <div class="card-body">
+                          <div class="pro-widget-content text-center">
+                            <div class="profile-info-widget">
+                              <a href="employment.html" class="booking-doc-img">
+                                <img
+                                  src="assets/img/profiles/img-6.jpg"
+                                  alt="User Image"
+                                />
+                              </a>
+                              <div class="profile-det-info">
+                                <h4>
+                                  <a href="employment.html" class="text-primary"
+                                    >Maria Cotton</a
+                                  >
+                                </h4>
+                                <div>
+                                  <p class="mb-0"><b>PHP Team Lead</b></p>
+                                  <p class="mb-0 ctm-text-sm">
+                                    <a
+                                      href="https://dleohr.dreamguystech.com/cdn-cgi/l/email-protection"
+                                      class="__cf_email__"
+                                      data-cfemail="bcd1ddced5dddfd3c8c8d3d2fcd9c4ddd1ccd0d992dfd3d1"
+                                      >[email&#160;protected]</a
+                                    >
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toasts -->
+    <div aria-live="polite" aria-atomic="true">
+
+        <!-- Position it -->
+        <div class="fixed-bottom w-25" style="bottom: 2rem; left: 2rem;">
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="mr-auto toast-title">Toast Title</strong>
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="toast-body">
+                    Some Toast Body      
+                </div>
+          </div>
+        </div>
+    </div>
+
+  </div>
+
+    <!-- delete concent modal -->
+    <div id="EmployeeDeleteConcentModal">
+      <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Delete Employee</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-theme ctm-border-radius text-white" data-dismiss="modal"> Close </button>
+              <button type="button" class="btn btn-theme ctm-border-radius text-white" data-dismiss="modal" id="employeeConfirmDelete"> Delete </button>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+
+    <!-- success/error message popup -->
+          <!-- <div class="toast align-items-center text-white bg-primary border-0 " role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+              <div class="toast-body">
+                
+              </div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+          </div> -->
+    <!-- -->
+
+    <div class="sidebar-overlay" id="sidebar_overlay"></div>
+
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
+
+    <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+    <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
+    <script src="assets/plugins/select2/moment.min.js"></script>
+    <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+
+    <script src="assets/plugins/select2/select2.min.js"></script>
+
+    <script src="assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+    
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/add-employee.js"></script>
+    <script src="assets/js/edit-employee.js"></script>
+    <script src="assets/js/employee.js"></script>
+    <script>
+      $('.aside-module-name').text('Employees');
+      $('#employeeLink').removeClass('text-dark').addClass('active').addClass('text-white');
+    </script>
+  </body>
+</html>

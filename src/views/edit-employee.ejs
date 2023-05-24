@@ -1,0 +1,470 @@
+<form id="form-edit-employee" autocomplete="off">
+  <div class="accordion add-employee" id="accordion-details">
+    <div class="card shadow-sm grow ctm-border-radius">
+      <div class="card-header" id="basic1">
+        <h4 class="cursor-pointer mb-0">
+          <a
+            class="coll-arrow d-block text-dark"
+            href="javascript:void(0)"
+            data-toggle="collapse"
+            data-target="#basic-one"
+            aria-expanded="true"
+          >
+            Basic Details
+            <br /><span class="ctm-text-sm">Organized and secure.</span>
+          </a>
+        </h4>
+      </div>
+      <div class="card-body p-0">
+        <div
+          id="basic-one"
+          class="collapse show ctm-padding"
+          aria-labelledby="basic1"
+          data-parent="#accordion-details"
+        >
+          <div class="row">
+            <div class="col-4 form-group">
+              <input
+                type="text"
+                class="form-control"
+                id="firstName"
+                name="firstName"
+                placeholder="First Name"
+              />
+              <!-- <label for="firstName" class="text-danger"> *first name is requeired</label> -->
+            </div>
+            <div class="col-4 form-group">
+              <input
+                type="text"
+                class="form-control"
+                id="middleName"
+                name="middleName"
+                placeholder="Middle Name"
+              />
+              <!-- <label for="middleName" class="text-danger"> *Middle name is requeired</label> -->
+            </div>
+            <div class="col-4 form-group">
+              <input
+                type="text"
+                class="form-control"
+                id="lastName"
+                name="lastName"
+                placeholder="Last Name"
+              />
+              <!-- <label for="lastName" class="text-danger"> *Last name is requeired</label> -->
+            </div>
+            <div class="col-6 form-group">
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                placeholder="Email"
+              />
+              <!-- <label for="email" class="text-danger"> *Email is requeired</label>
+              <label for="email" class="text-danger"> *please enter valid Email</label> -->
+            </div>
+            <div class="col-6 form-group d-flex">
+              <!-- <label for="" class="m-2"> Gender: </label> -->
+              <p class="me-3 pb-2">Gender: &nbsp;</p>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  type="radio"
+                  class="custom-control-input"
+                  id="male"
+                  name="gender"
+                  value="male"
+                  checked
+                />
+                <label class="custom-control-label" for="male">Male</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  type="radio"
+                  class="custom-control-input"
+                  id="female"
+                  name="gender"
+                  value="female"
+                />
+                <label class="custom-control-label" for="female">Female</label>
+              </div>
+            </div>
+            <div class="col-6 form-group">
+              <div class="cal-icon d-flex">
+                <p>Date of Birth: &nbsp;</p>
+                <input
+                  class="form-control col-10 cal-icon-input"
+                  type="date"
+                  id="dob"
+                  name="dob"
+                  placeholder="DOB"
+                />
+                <!-- <label for="dob" class="text-danger"> *DOB is requeired</label> -->
+              </div>
+            </div>
+            <div class="col-6 form-group">
+              <div>
+                <select class="form-control select" name="role" id="role">
+                  <option selected disabled>Role</option>
+                  <option value="DEV">DEV.</option>
+                  <option value="HR">HR</option>
+                  <option value="PM">PM</option>
+                  <option value="ADMIN">ADMIN</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-6 form-group">
+              <div class="cal-icon d-flex">
+                <p>Joining Date: &nbsp;</p>
+                <input
+                  class="form-control col-10 cal-icon-input"
+                  type="date"
+                  id="joiningDate"
+                  name="joiningDate"
+                  placeholder="joinng date"
+                />
+              </div>
+            </div>
+            <div class="col-6 form-group">
+              <div class="cal-icon d-flex">
+                <p>career start: &nbsp;</p>
+                <input
+                  class="form-control col-10 cal-icon-input"
+                  type="date"
+                  id="careerStartDate"
+                  name="careerStartDate"
+                  placeholder="careerStartDate"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card shadow-sm grow ctm-border-radius">
+    <div class="card-header" id="headingTwo">
+      <h4 class="cursor-pointer mb-0">
+        <a
+          class="coll-arrow d-block text-dark"
+          href="javascript:void(0)"
+          data-toggle="collapse"
+          data-target="#academic-det"
+        >
+          Academic Details
+        </a>
+      </h4>
+    </div>
+    <div class="card-body p-0">
+      <div
+        id="academic-det"
+        class="collapse show ctm-padding"
+        aria-labelledby="headingTwo"
+        data-parent="#accordion-details"
+      >
+        <div class="row">
+          <div class="col-6 form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="highestQualification"
+              name="highestQualification"
+              placeholder="Highest Qualification"
+            />
+          </div>
+          <div class="col-6 form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="collage"
+              name="collage"
+              placeholder="collage Name"
+            />
+          </div>
+          <div class="col-6 form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="university"
+              name="university"
+              placeholder="University Name"
+            />
+          </div>
+
+          <!-- <div class="col-md-12 form-group">
+                            <div class="cal-icon">
+                              <input
+                                class="form-control datetimepicker cal-icon-input"
+                                type="text"
+                                placeholder="Start Date"
+                              />
+                            </div>
+                          </div> -->
+
+          <div class="col-6 form-group">
+            <select
+              class="form-control select"
+              multiple
+              id="knownTech"
+              name="knownTech[]"
+            >
+              <option selected disabled>Known Technology</option>
+              <option value="C++">C++</option>
+              <option value="C#">C#</option>
+              <option value="Java">Java</option>
+              <option value="Objective-C">Objective-C</option>
+              <option value="JavaScript">JavaScript</option>
+              <option value="Perl">Perl</option>
+              <option value="PHP">PHP</option>
+              <option value="Ruby on Rails">Ruby on Rails</option>
+              <option value="Android">Android</option>
+              <option value="iOS">iOS</option>
+              <option value="HTML">HTML</option>
+              <option value="XML">XML</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card shadow-sm grow ctm-border-radius">
+    <div class="card-header" id="headingThree">
+      <h4 class="cursor-pointer mb-0">
+        <a
+          class="coll-arrow d-block text-dark"
+          href="javascript:void(0)"
+          data-toggle="collapse"
+          data-target="#contact-details"
+        >
+          Contact Details
+          <br /><span class="ctm-text-sm"
+            >Keep things tidy — and save time setting approvers and public
+            holidays.</span
+          >
+        </a>
+      </h4>
+    </div>
+    <div class="card-body p-0">
+      <div
+        id="contact-details"
+        class="collapse show ctm-padding"
+        aria-labelledby="headingThree"
+        data-parent="#accordion-details"
+      >
+        <div class="row">
+          <div class="col-6 form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="contactNo"
+              name="contactNo"
+              placeholder="Contact No"
+            />
+          </div>
+          <div class="col-6 form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="secondaryEmail"
+              name="secondaryEmail"
+              placeholder="Secondary Email"
+            />
+          </div>
+          <div class="col-6 form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="houseNo"
+              name="houseNo"
+              placeholder="House NO/Name"
+            />
+          </div>
+          <div class="col-6 form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="addressLine1"
+              name="addressLine1"
+              placeholder="Address Line 1"
+            />
+          </div>
+          <div class="col-6 form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="addressLine2"
+              name="addressLine2"
+              placeholder="Address Line 2"
+            />
+          </div>
+          <div class="col-6 form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="landmark"
+              name="landmark"
+              placeholder="Landmark"
+            />
+          </div>
+          <div class="col-6 form-group">
+            <div>
+              <select class="form-control select" name="state" onchange="populateCityNames(false);" id="employee-edit-state">
+                <option selected disabled>state</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-6 form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="pincode"
+              name="pincode"
+              placeholder="pincode"
+            />
+          </div>
+          <div class="col-6 form-group">
+            <div>
+              <select class="form-control select" name="city" id="employee-edit-city">
+                <option selected disabled>City</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-6 form-group">
+            <div>
+              <select class="form-control select" name="country" id="employee-edit-country">
+                <option selected disabled>country</option>
+                <option selected value="India">India</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card shadow-sm grow ctm-border-radius">
+    <div class="card-header" id="headingFour">
+      <h4 class="cursor-pointer mb-0">
+        <a
+          class="coll-arrow d-block text-dark"
+          href="javascript:void(0)"
+          data-toggle="collapse"
+          data-target="#pre-work"
+        >
+          Previous Work Details
+          <br /><span class="ctm-text-sm"
+            >Stored securely, only visible to Super Admins, Payroll Admins, and
+            themselves.</span
+          >
+        </a>
+      </h4>
+    </div>
+    <div class="card-body p-0">
+      <div
+        id="pre-work"
+        class="collapse show ctm-padding"
+        aria-labelledby="headingFour"
+        data-parent="#accordion-details"
+      >
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="preEmployer"
+              name="preEmployer"
+              placeholder="previous Employer"
+            />
+          </div>
+          <div class="col-md-12 form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="preEmployerAddress"
+              name="preEmployerAddress"
+              placeholder="previous Employer Address"
+            />
+          </div>
+          <div class="col-md-12 form-group mb-0">
+            <div class="cal-icon d-flex">
+              <p>working time: &nbsp;</p>
+              <input
+                type="number"
+                min="0"
+                class="form-control col-2"
+                id="workingTimeInYear"
+                name="workingTimeInYear"
+              />
+              <p>years, &nbsp;</p>
+              <input
+                type="number"
+                min="0"
+                class="form-control col-2"
+                id="workingTimeInMonth"
+                name="workingTimeInMonth"
+              />
+              <p>months.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card ctm-border-radius shadow-sm flex-fill grow">
+    <div class="card-header">
+      <h4 class="card-title mb-0">Profile pic</h4>
+    </div>
+    <!-- <form id="avatarEmployee" enctype="multipart/form-data"> -->
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="avatar-upload">
+            <div class="avatar-edit">
+              <input
+                type="file"
+                id="imageUploadUpdate"
+                name="avatarUpdate"
+                onchange="imagePreviewUpdate()"
+                accept=".png, .jpg, .jpeg"
+              />
+              <label for="imageUploadUpdate"></label>
+            </div>
+            <div class="avatar-preview">
+              <div id="imagePreview"></div>
+            </div>
+          </div>
+          <div>
+            <!-- <div class="submit-section text-center btn-add">
+              <button
+                type="submit"
+                class="btn btn-theme text-white ctm-border-radius"
+              >
+                add avatar
+              </button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- </form> -->
+  </div>
+  <div class="row d-flex justify-content-center" id="form-edit-submit-button">
+    <div class="mx-1">
+      <div class="text-center btn-add">
+        <button class="btn btn-theme text-white ctm-border-radius">
+          Update
+        </button>
+      </div>
+    </div>
+    <div class="mx-1">
+      <div class="text-center btn-add">
+        <button
+          type="reset"
+          id="cancelEdit"
+          class="btn btn-theme text-white ctm-border-radius"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

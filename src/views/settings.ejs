@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.png" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+    <link rel="manifest" href="/assets/img/site.webmanifest">
+    <link rel="mask-icon" href="/assets/img/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/assets/img/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="/assets/img/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="assets/css/lnr-icon.css" />
+
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+
+    <link rel="stylesheet" href="assets/plugins/select2/select2.min.css" />
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <title>Settings </title>
+  </head>
+  <body>
+    <div class="inner-wrapper">
+      <div id="loader-wrapper">
+        <div class="loader">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+
+      <!--  header partials  -->
+      <%- include('partials/header'); %>
+
+      <div class="page-wrapper position-relative">
+        <div class="container-fluid">
+          <div class="row">
+            <!--  side bar aside tag -->
+            <%- include('partials/aside'); %>
+
+            <div class="col-xl-10 col-lg-9 col-md-12">
+              <div
+                class="quicklink-sidebar-menu ctm-border-radius shadow-sm grow bg-white card"
+              >
+                <div class="card-body">
+                  <ul class="list-group list-group-horizontal-lg">
+                    <li class="list-group-item text-center active button-5">
+                      <a href="settings.html" class="text-white">General</a>
+                    </li>
+                    <!-- <li class="list-group-item text-center button-6">
+                      <a class="text-dark" href="settings-timeoff.html"
+                        >Time Off</a
+                      >
+                    </li> -->
+                  </ul>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 d-flex">
+                  <div class="card ctm-border-radius shadow-sm flex-fill grow">
+                    <div class="card-header">
+                      <h4 class="card-title mb-0">Technology</h4>
+                    </div>
+                    <div class="card-body">
+                      <div class="form-group">
+                        <label>Tech. list</label>
+                        <div class="d-flex">
+                          <select
+                            class="form-control select"
+                            id="techList"
+                            name="techSelect"
+                          >
+                            <option selected disabled>Technology</option>
+                          </select>
+                          <div class="team-action-icon mx-2">
+                            <% if (role === 'ADMIN') { %>
+                            <button
+                              id="EditTech"
+                              data-toggle="modal"
+                              data-target="#editTechnology"
+                              disabled
+                              class="btn btn-theme ctm-border-radius text-white btn-sm"
+                            >
+                              <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </button>
+                            <% } %>
+                          </div>
+                        </div>
+                      </div>
+                      <% if (role === 'ADMIN') { %>
+                      <form
+                        action="/technologies"
+                        method="POST"
+                        id="addTechnology"
+                      >
+                        <div class="form-group d-flex">
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="techName"
+                            name="techName"
+                            placeholder="add Technology"
+                          />
+                          <div class="team-action-icon mx-2">
+                            <button
+                              type="submit"
+                              class="btn btn-theme ctm-border-radius text-white btn-sm"
+                            >
+                              <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                      <% } %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 d-flex">
+                  <div class="card ctm-border-radius shadow-sm flex-fill grow">
+                    <div class="card-header">
+                      <h4 class="card-title mb-0">Point of Contact</h4>
+                    </div>
+                    <div class="card-body">
+                      <div class="form-group">
+                        <label>Fields -(POC)</label>
+                        <div class="d-flex">
+                          <select
+                            class="form-control select"
+                            id="pocFields"
+                            name="Poc"
+                          >
+                            <option selected disabled>Fields</option>
+                          </select>
+                          
+                        </div>
+                        <% if (role === 'ADMIN') { %>
+                        <div class="team-action-icon m-3 float-right">
+                            <button
+                              data-toggle="modal"
+                              data-target="#editPoc"
+                              onclick="editPocBtn()"
+                              class="btn btn-theme ctm-border-radius text-white btn-sm"
+                            >
+                              <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </button>
+                            <button
+                              type="submit"
+                              data-toggle="modal"
+                              data-target="#addPoc"
+                              class="btn btn-theme ctm-border-radius text-white btn-sm"
+                            >
+                              <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <% } %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Toasts -->
+    <div aria-live="polite" aria-atomic="true">
+
+        <!-- Position it -->
+        <div class="fixed-bottom w-25" style="bottom: 2rem; left: 2rem;">
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="mr-auto toast-title">Toast Title</strong>
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="toast-body">
+                    Some Toast Body      
+                </div>
+          </div>
+        </div>
+    </div>
+
+      </div>
+    </div>
+
+    <!-- modal -->
+    <div class="modal fade" id="editTechnology">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+            <h4 class="modal-title mb-3">Edit Technology</h4>
+            <form id="techEditForm" method="POST" action="/technology" autocomplete="off">
+            <div class="form-group">
+              <input type="text" class="form-control" id="techEditField" name="field" placeholder="Field" required/>
+            </div>
+            <button
+              type="button"
+              class="btn btn-danger text-white ctm-border-radius float-right ml-3"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="btn btn-theme text-white ctm-border-radius float-right button-1"
+            >
+              Edit
+            </button>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="addPoc">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+            <h4 class="modal-title mb-3">Add Poc</h4>
+            <form id="pocAddForm" method="POST" action="/poc">
+            <div class="form-group">
+              <input type="text" class="form-control" id="pocAddfield" name="field" autocomplete="off" placeholder="Field" required/>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" id="pocAddContact"  name="contactEmployee" placeholder="contact employee email" required/>
+            </div>
+            <button
+              type="button"
+              class="btn btn-danger text-white ctm-border-radius float-right ml-3"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="btn btn-theme text-white ctm-border-radius float-right button-1"
+            >
+              Add
+            </button>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <div class="modal fade" id="editPoc">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+
+            <h4 class="modal-title mb-3">Edit Poc</h4>
+            <form id="pocEditForm"> 
+            <div class="form-group">
+              <input type="text" id="pocEditField" name="field" class="form-control" autocomplete="off" disabled placeholder="Field"/>
+            </div>
+            <div class="form-group">
+              <input type="email" id="pocEditContact" name="contactEmployee" class="form-control" placeholder="contact employee email" required/>
+            </div>
+            <button
+              type="button"
+              class="btn btn-danger text-white ctm-border-radius float-right ml-3"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="btn btn-theme text-white ctm-border-radius float-right button-1"
+            >
+              Edit
+            </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebar_overlay"></div>
+
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
+
+    <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+    <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
+    <script src="assets/plugins/select2/select2.min.js"></script>
+
+    <script src="assets/js/script.js"></script>
+        <script>
+      $('.aside-module-name').text('Setting');
+      $('#settingLink').removeClass('text-dark').addClass('active').addClass('text-white');
+    </script>
+    <script>
+      $("#deleteTech").click(() => {});
+
+      $("#addTechnology").on("submit", (event) => {
+        event.preventDefault();
+      });
+
+      $("#addTechnology").validate({
+        rules: {
+          techName: {
+            required: true,
+            nowhitespace: true,
+          },
+        },
+        messages: {
+          techName: {
+            required: "please enter technology name",
+            nowhitespace:
+              "No space is allowed in between word. may use ( - or / )",
+          },
+        },
+        errorElement: "span",
+        errorClass: "text-danger",
+        errorPlacement: function (error, element) {
+          error.insertAfter(element.parent());
+        },
+        submitHandler: function (form) {
+          $.ajax({
+            type: 'POST',
+            url: '/technologies',
+            data: {
+              techName: `${$('#techName').val()}`
+            },
+            success: (data) => {
+              $('.toast-header').removeClass('bg-danger').addClass('bg-success').addClass('text-dark');
+              $('.toast-title').text('Technology');
+              $('.toast-body').text('new Technology added');
+              $('.toast').toast({
+                delay: 3000,
+              });
+              $('.toast').toast('show');
+              fetchTechnlogy();
+            },
+            error: (error) => {
+              $('.toast-header').removeClass('bg-success').addClass('bg-danger').addClass('text-dark');
+              $('.toast-title').text('Technology');
+              $('.toast-body').text(error.responseJSON.errorMessage);
+              $('.toast').toast({
+                delay: 3000,
+              });
+              $('.toast').toast('show');
+            }
+          })
+
+          //location.reload();
+        },
+      });
+
+      $('#techList').on('change', (event) => {
+        $('#EditTech').removeAttr('disabled');
+      });
+
+      $('#EditTech').on('click', (event) => {
+        $('#techEditField').val($('#techList').val());
+        $('#techEditField').data('tech', $('#techList').val());
+      });
+
+      $('#techEditForm').on('submit', (event) => {
+        event.preventDefault();
+        $.ajax({
+          type: "PUT",
+          url: '/technologies',
+          data: {
+            techName: $('#techEditField').data('tech'),
+            newTech: $('#techEditField').val(),
+          },
+          success: (data) => {
+            $('#editTechnology').modal('toggle');
+            $(".toast-header").removeClass("bg-danger").addClass("bg-success").addClass("text-dark");
+            $(".toast-title").text("Technology");
+            $(".toast-body").text(`${$('#techEditField').val()} Technology Edited successfully!`);
+            $(".toast").toast({
+              delay: 3000,
+            });
+            $(".toast").toast("show");
+            fetchTechnlogy();
+          },
+          error: (error) => {
+            console.log(error);
+            $(".toast-header").removeClass("bg-success").addClass("bg-danger").addClass("text-dark");
+            $(".toast-title").text("Technology");
+            $(".toast-body").text(error.responseJSON.errorMessage);
+            $(".toast").toast({
+              delay: 3000,
+            });
+            $(".toast").toast("show");
+          },
+        });
+      });
+
+      const fetchTechnlogy = () => {
+        $("#techList").html(`<option selected disabled>Technology</option>`);
+        $.ajax({
+          type: "GET",
+          url: "/technologies",
+          success: function ({ data }) {
+            data.forEach((elem) => {
+              const val = elem.techName;
+              $("#techList").append(`<option value="${val}">${val}</option>`);
+            });
+          },
+          error: function (error) {
+            $('.toast-header').removeClass('bg-success').addClass('bg-danger').addClass('text-dark');
+              $('.toast-title').text('Technology');
+              $('.toast-body').text(error.responseJSON.errorMessage);
+              $('.toast').toast({
+                delay: 4000,
+              });
+              $('.toast').toast('show');
+          },
+        });
+      };
+      fetchTechnlogy();
+
+      const polulatePocTable = () => {
+        $('#pocFields').html('');
+        $.ajax({
+          type: "GET",
+          url: `/poc`,
+          success: ({ data }) => {
+            data.forEach(element => {
+              $("#pocFields").append(`
+              <option value='${element.field}' data-employee='${JSON.stringify(element.Employee)}'> 
+                ${element.field} -(${element.Employee.email})
+                </option>
+              `);
+            });
+          },
+          error: (error) => {
+            $(".toast-header").removeClass("bg-success").addClass("bg-danger").addClass("text-dark");
+            $(".toast-title").text("Technology");
+            $(".toast-body").text(error.responseJSON.errorMessage);
+            $(".toast").toast({
+              delay: 4000,
+            });
+            $(".toast").toast("show");
+          },
+        });
+      }
+      polulatePocTable();
+
+      const editPocBtn = () => {
+        const field = $('#pocFields').val();
+        const employee = $('#pocFields :selected').data('employee');
+        $('#editPoc #pocEditField').val(field);
+        $('#editPoc #pocEditContact').val(employee.email);
+      }
+
+      $('#pocAddForm').on('submit', (elem) => {
+        elem.preventDefault();
+        $.ajax({
+          type: "POST",
+          url: '/poc',
+          data: {
+            field: $('#pocAddfield').val(),
+            contactEmployee: $('#pocAddContact').val(),
+          },
+          success: (data) => {
+            $('#addPoc').modal('toggle');
+            $(".toast-header").removeClass("bg-danger").addClass("bg-success").addClass("text-dark");
+            $(".toast-title").text("POC");
+            $(".toast-body").text('new POC added');
+            $(".toast").toast({
+              delay: 4000,
+            });
+            $(".toast").toast("show");
+            polulatePocTable();
+          },
+          error: (error) => {
+            console.log(error);
+            $(".toast-header").removeClass("bg-success").addClass("bg-danger").addClass("text-dark");
+            $(".toast-title").text("POC");
+            $(".toast-body").text(error.responseJSON.errorMessage);
+            $(".toast").toast({
+              delay: 4000,
+            });
+            $(".toast").toast("show");
+          },
+        });
+      });
+
+      $('#pocEditForm').on('submit', (elem) => {
+        elem.preventDefault();
+        $.ajax({
+          type: "PUT",
+          url: '/poc',
+          data: {
+            field: $('#pocEditfield').val(),
+            contactEmployee: $('#pocEditContact').val(),
+          },
+          success: (data) => {
+            $('#editPoc').modal('toggle');
+            $(".toast-header").removeClass("bg-danger").addClass("bg-success").addClass("text-dark");
+            $(".toast-title").text("POC");
+            $(".toast-body").text(`${$('#pocEditfield').val()} POC Edited successfully!`);
+            $(".toast").toast({
+              delay: 4000,
+            });
+            $(".toast").toast("show");
+            polulatePocTable();
+          },
+          error: (error) => {
+            console.log(error);
+            $(".toast-header").removeClass("bg-success").addClass("bg-danger").addClass("text-dark");
+            $(".toast-title").text("POC");
+            $(".toast-body").text(error.responseJSON.errorMessage);
+            $(".toast").toast({
+              delay: 4000,
+            });
+            $(".toast").toast("show");
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
